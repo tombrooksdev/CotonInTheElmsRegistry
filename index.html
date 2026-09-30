@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coton in the Elms Business Register</title>
+<meta name="description" content="Register your Coton in the Elms business in a free local directory.">
+<meta name="theme-color" content="#2F4D3A">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF8F1;
+    --paper-border: #E4DCC8;
+    --moss-1: #E7EEDC;
+    --moss-2: #EFF3E7;
+    --forest: #2F4D3A;
+    --forest-dark: #21382A;
+    --forest-tint: #E4EDE1;
+    --bark: #8A6A46;
+    --water: #5E7C86;
+    --brick: #8C4A36;
+    --ink: #26291F;
+    --ink-soft: #62644F;
+    --error: #A8442C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(175deg, var(--moss-1) 0%, var(--moss-2) 55%);
+    color: var(--ink);
+    font-family: 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main.page {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 4rem 1.25rem 3rem;
+  }
+
+  .page-header {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+
+  .logo-mark {
+    display: block;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    margin: 0 0 0.75rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    line-height: 1.15;
+    color: var(--forest);
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lede {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: 1.0125rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .deco {
+    position: absolute;
+    pointer-events: none;
+    color: var(--bark);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    z-index: 0;
+  }
+
+  .deco--header { top: -34px; right: -18px; width: 168px; height: auto; opacity: 0.55; }
+
+  .deco-leaf { fill: currentColor; fill-opacity: 0.2; stroke: none; }
+  .deco-vein { fill: none; stroke: currentColor; stroke-width: 1; opacity: 0.5; }
+
+  .brook-scene { max-width: 560px; margin: 2.5rem auto 0; padding: 0 1.25rem; }
+  .brook-scene svg { width: 100%; height: auto; display: block; }
+
+  .scene-line { fill: none; stroke: var(--bark); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.6; }
+  .scene-canopy { fill: var(--forest); fill-opacity: 0.16; stroke: var(--bark); stroke-width: 1.2; opacity: 0.7; }
+  .scene-brick { fill: var(--brick); fill-opacity: 0.16; stroke: var(--brick); stroke-width: 1.4; opacity: 0.7; }
+  .scene-brick-course { fill: none; stroke: var(--brick); stroke-width: 1; opacity: 0.55; }
+  .scene-water { fill: none; stroke: var(--water); stroke-width: 1.6; stroke-linecap: round; opacity: 0.55; }
+  .scene-ripple { fill: none; stroke: var(--water); stroke-width: 1.2; stroke-linecap: round; opacity: 0.4; }
+
+  .card {
+    position: relative;
+    margin-top: 2.25rem;
+    padding: 2rem;
+    background: var(--paper);
+    border: 1px solid var(--paper-border);
+    border-radius: 18px;
+    box-shadow: 0 24px 48px -28px rgba(47, 77, 58, 0.35);
+    overflow: visible;
+  }
+
+  .field { margin-bottom: 1.25rem; }
+  .field:last-of-type { margin-bottom: 0; }
+
+  label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  input[type="text"], input:not([type]), input[type="email"], textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    font: inherit;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid var(--paper-border);
+    border-radius: 10px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--forest);
+    box-shadow: 0 0 0 4px var(--forest-tint);
+  }
+
+  textarea { resize: vertical; min-height: 6.5rem; }
+
+  .char-count {
+    margin: 0.35rem 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+
+  .hp { position: absolute; left: -9999px; }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin: 1.5rem 0 1.25rem;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+
+  .consent input { margin-top: 0.2rem; width: 1rem; height: 1rem; accent-color: var(--forest); flex-shrink: 0; }
+
+  .privacy-note {
+    margin: 0 0 1.5rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    background: var(--forest);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: var(--forest-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px -10px rgba(47, 77, 58, 0.55);
+  }
+
+  .btn:active:not(:disabled) { transform: translateY(0); box-shadow: none; }
+
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--forest-tint), 0 0 0 2px var(--forest);
+  }
+
+  .btn:disabled { cursor: progress; opacity: 0.85; }
+
+  .btn.is-loading::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    margin-right: 0.6rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .msg {
+    min-height: 1.3rem;
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .msg.is-visible { opacity: 1; transform: none; }
+  .msg.ok { color: var(--forest); }
+  .msg.err { color: var(--error); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    .page-header, .card { animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .card { animation-delay: 0.12s; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, input, textarea, .msg { transition: none; }
+    .btn.is-loading::before { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    main.page { padding: 3rem 1rem 2.5rem; }
+    .card { padding: 1.5rem; }
+    .deco--header { width: 110px; top: -22px; right: -8px; }
+    .brook-scene { margin-top: 1.75rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="page-header">
+    <svg class="deco deco--header" viewBox="0 0 240 170" aria-hidden="true" focusable="false">
+      <path d="M6 8 C 60 4, 96 26, 118 54 C 140 82, 150 110, 200 118 C 216 121, 228 126, 236 136" />
+      <path d="M118 54 C 108 70, 92 78, 74 92" stroke-width="1.2" />
+      <g transform="translate(46,18) rotate(140)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(80,36) rotate(160) scale(0.9)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(118,54) rotate(200)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(74,92) rotate(250) scale(0.8)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(150,80) rotate(20)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(185,103) rotate(40) scale(0.85)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+      <g transform="translate(215,124) rotate(60) scale(0.7)"><path class="deco-leaf" d="M0 0 C 5 -7 5 -18 0 -25 C -5 -18 -5 -7 0 0 Z" /><path class="deco-vein" d="M0 -2 L0 -22" /></g>
+    </svg>
+    <img src="logo.svg" alt="" class="logo-mark" width="56" height="56">
+    <h1>Coton in the Elms Business Register</h1>
+    <p class="lede">We're gauging interest in a free local directory for village businesses. Register your interest below. There's no commitment, and we'll be in touch as it takes shape.</p>
+  </div>
+
+  <form id="f" class="card" novalidate>
+    <div class="field">
+      <label for="name">Your name</label>
+      <input id="name" name="name" required maxlength="120" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" required maxlength="190" autocomplete="email">
+    </div>
+    <div class="field">
+      <label for="business">Business name</label>
+      <input id="business" name="business" required maxlength="160">
+    </div>
+    <div class="field">
+      <label for="description">What do you do?</label>
+      <textarea id="description" name="description" required maxlength="500" rows="4"></textarea>
+      <p class="char-count"><span id="count">0</span>/500</p>
+    </div>
+
+    <div class="hp" aria-hidden="true">
+      <label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" name="marketing_consent" value="1">
+      <span>Yes, email me updates about the Coton in the Elms business register. You can unsubscribe at any time.</span>
+    </label>
+
+    <p class="privacy-note">We'll use your details to list your business and send a confirmation email. Your details are held by Coton in the Elms Business Register and won't be shared or sold. Contact hello@cotonintheelms.co.uk to see, correct or delete your data.</p>
+
+    <button id="btn" class="btn" type="submit">Register my interest</button>
+    <p id="msg" class="msg" role="status"></p>
+  </form>
+
+  <div class="brook-scene" aria-hidden="true">
+    <svg viewBox="0 0 640 150" preserveAspectRatio="xMidYMax meet" focusable="false">
+      <defs>
+        <path id="tuft" d="M0,0 C -3,-10 -2,-15 -5,-19 M0,0 C 0,-13 0,-17 0,-22 M0,0 C 3,-10 2,-15 5,-19" />
+        <g id="elm">
+          <path class="scene-canopy" d="M-20,-2 C-26,-16 -12,-30 2,-27 C 12,-34 28,-20 20,-4 C 27,8 10,18 -2,13 C-13,20 -26,10 -20,-2 Z" />
+          <path class="scene-line" d="M0,12 L0,30" />
+        </g>
+        <path id="roof" class="scene-line" d="M-15,12 L0,-9 L15,12" />
+      </defs>
+
+      <use href="#roof" transform="translate(150,28)" />
+      <use href="#roof" transform="translate(490,32) scale(0.85)" />
+
+      <use href="#elm" transform="translate(46,58)" />
+      <use href="#elm" transform="translate(596,62) scale(0.85)" />
+      <use href="#elm" transform="translate(210,66) scale(0.6)" />
+
+      <path class="scene-line" d="M256,64 C 275,50 365,50 384,64" />
+      <path class="scene-line" d="M256,72 C 275,58 365,58 384,72" />
+      <path class="scene-brick" d="M262,92 L266,68 L282,68 L286,92 Z" />
+      <path class="scene-brick" d="M354,92 L358,68 L374,68 L378,92 Z" />
+      <path class="scene-brick-course" d="M267,76 L281,76 M267,82 L281,82 M267,88 L281,88" />
+      <path class="scene-brick-course" d="M359,76 L373,76 M359,82 L373,82 M359,88 L373,88" />
+      <path class="scene-line" d="M286,90 C 286,72 354,72 354,90" />
+
+      <path class="scene-water" d="M0,90 C 40,84 80,96 120,90 C 160,84 200,96 240,90 C 260,88 300,88 320,90 C 340,92 380,96 420,90 C 460,84 500,96 540,90 C 580,84 620,96 640,90" />
+      <path class="scene-water" d="M0,116 C 40,110 80,122 120,116 C 160,110 200,122 240,116 C 260,114 300,114 320,116 C 340,118 380,122 420,116 C 460,110 500,122 540,116 C 580,110 620,122 640,116" />
+      <path class="scene-ripple" d="M28,101 h14 M108,105 h14 M188,99 h14 M400,103 h14 M480,99 h14 M560,105 h14" />
+
+      <use href="#tuft" class="scene-line" transform="translate(20,88)" />
+      <use href="#tuft" class="scene-line" transform="translate(130,88) scale(0.85)" />
+      <use href="#tuft" class="scene-line" transform="translate(470,88) scale(0.9)" />
+      <use href="#tuft" class="scene-line" transform="translate(600,88)" />
+      <use href="#tuft" class="scene-line" transform="translate(70,116) scale(1,-1)" />
+      <use href="#tuft" class="scene-line" transform="translate(430,116) scale(0.9,-0.9)" />
+      <use href="#tuft" class="scene-line" transform="translate(320,120) scale(0.8,-0.8)" />
+    </svg>
+  </div>
+</main>
+<script>
+const f = document.getElementById('f'), msg = document.getElementById('msg'), btn = document.getElementById('btn');
+document.getElementById('description').addEventListener('input', e => document.getElementById('count').textContent = e.target.value.length);
+
+function setMsg(text, kind) {
+  msg.textContent = text;
+  msg.className = 'msg is-visible' + (kind ? ' ' + kind : '');
+}
+
+f.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!f.reportValidity()) return;
+  btn.disabled = true;
+  btn.classList.add('is-loading');
+  setMsg('Sending...', '');
+  try {
+    const r = await fetch('submit.php', { method: 'POST', body: new FormData(f) });
+    const j = await r.json();
+    setMsg(j.message, j.ok ? 'ok' : 'err');
+    if (j.ok) f.reset();
+  } catch {
+    setMsg('Something went wrong. Please try again.', 'err');
+  }
+  btn.disabled = false;
+  btn.classList.remove('is-loading');
+});
+</script>
+</body>
+</html>

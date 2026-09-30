@@ -1,0 +1,8 @@
+.env
+.git
+vendor
+config.php
+config.example.php
+schema.sql
+docker-compose.yml
+*.zip
