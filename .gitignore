@@ -1,5 +1,6 @@
 .env
 config.php
 vendor/
+backups/
 .DS_Store
 Thumbs.db

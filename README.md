@@ -52,6 +52,8 @@ Run `make help` to see every command. The main ones:
 | `make shell` | Shell into the web container |
 | `make db-shell` | MySQL shell into the db container |
 | `make admin-hash PASS=yourpassword` | Generate a bcrypt hash for `ADMIN_PASSWORD_HASH` |
+| `make backup` / `make restore FILE=...` | Dump / restore the database (see [DEPLOY.md](DEPLOY.md)) |
+| `make deploy` | On a server: `git pull` + `make restart` in one step |
 | `make clean` | **Destructive** — stops the stack and deletes the database volume |
 
 ## Configuration (`.env`)
@@ -115,49 +117,21 @@ strong.
 
 ## Deployment
 
-This repo supports two paths. **Docker is the one actually built and tested
-in this project** (it's what the `Makefile` drives); the Plesk/shared-hosting
-path exists via `config.example.php` but hasn't been exercised here — check
+Full step-by-step runbook (server setup, reverse proxy + TLS config, DNS,
+backups): **[DEPLOY.md](DEPLOY.md)**. Short version:
+
+```
+make setup && edit .env with real values
+make build && make up
+# put a reverse proxy (nginx/Caddy) in front for HTTPS - see DEPLOY.md
+```
+
+That covers the **Docker path**, the one actually built and tested in this
+project (it's what the `Makefile` drives). There's also a
+`config.example.php`-based path for traditional/Plesk shared hosting without
+Docker — see that file's comments — but it hasn't been exercised here; check
 with whoever manages the target server before relying on it as-is.
 
-### Option A — Docker (recommended)
-
-On a server with Docker and Docker Compose installed:
-
-1. Get the code onto the server. This project isn't a git repository yet — see "First time: version control" below before you push it anywhere.
-2. `make setup`, then edit `.env` with **real production values**:
-   - `SITE_URL` — your real public URL, e.g. `https://cotonintheelms.co.uk/register`
-   - Strong, unique `DB_PASS`, `DB_ROOT_PASS`, `IP_SALT`
-   - `ADMIN_PASSWORD_HASH` via `make admin-hash PASS=...`
-   - Real Microsoft Graph credentials (see "Email" above)
-3. `make build && make up` — builds the image, starts `web` + `db`.
-4. Put a reverse proxy (nginx, Caddy, or Traefik) in front of the container to terminate HTTPS and forward to `127.0.0.1:${WEB_PORT}`. **The container itself only serves plain HTTP** — there's no TLS termination built into this repo, and a form collecting personal data should not be served over plain HTTP in production.
-5. Point DNS at the server; once the reverse proxy has a valid certificate (e.g. via Let's Encrypt/Certbot, or Caddy's automatic HTTPS), the site is live.
-6. `make ps` / `make logs` to confirm both containers are up and healthy.
-7. To ship a future change: pull the new code, then `make restart` — rebuilds and recreates only the `web` container, the `db` container and its data are untouched.
-
-**Data persistence**: signups live in the `db_data` Docker volume. Back it up
-regularly (e.g. a scheduled `mysqldump` run through `make db-shell` or a cron
-job) — `make clean` or removing that volume deletes all signups permanently.
-
-### Option B — Traditional / Plesk hosting (no Docker)
-
-1. Upload all files to the web root (or the subdirectory matching `SITE_URL`, e.g. `/register`).
-2. Run `composer install --no-dev` once (via SSH or Plesk's Composer tool). There are no real dependencies left after the switch to Microsoft Graph, but `bootstrap.php` still expects `vendor/autoload.php` to exist.
-3. Copy `config.example.php` to `config.php` — ideally outside the web root, per that file's own comment — and fill in real values (db, `site_url`, `ip_salt`, `admin_password_hash`, the `graph` block, `confirm_email_subject`).
-4. Import `schema.sql` into the MySQL database.
-5. Make sure `AllowOverride All` is enabled for this directory so `.htaccess` can actually block direct access to `config.php` etc.
-6. PHP 8.1+ required (the code uses the `never` return type).
-
-### First time: version control
-
-There's no git repository here yet, and `.env` currently holds real secrets
-(DB passwords, the Microsoft client secret). A `.gitignore` excluding `.env`,
-`config.php` and `vendor/` has been added. Before pushing anywhere:
-
-```
-git init
-git add .
-git status   # double-check .env and config.php are NOT listed
-git commit -m "Initial commit"
-```
+Source lives at [github.com/tombrooksdev/CotonInTheElmsRegistry](https://github.com/tombrooksdev/CotonInTheElmsRegistry).
+`.env` and `config.php` are gitignored and must never be committed — they hold
+real DB and Microsoft Graph credentials.
